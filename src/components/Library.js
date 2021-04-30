@@ -13,7 +13,10 @@ const Library = ({
   const status = libraryStatus ? "" : "library-status";
   return (
     <div className={`library ${status}`}>
-      <h2>Library</h2>
+      <div className={`logo${!libraryStatus ? " logo-transform" : ""}`}>
+        <img src="/images/cassette.svg" alt="cassette-logo" />
+        <h3>minorfy</h3>
+      </div>
       <div className="library-songs">
         {songs.map((song) => {
           return (

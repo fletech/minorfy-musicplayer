@@ -29,13 +29,17 @@ nav.nav-bar {
   max-width: 200px;
   display: flex;
   align-items: center;
-  span {
-    color: #474747;
-  }
+  transition: all 0.6s ease;
   img {
     width: 30%;
     margin-right: 10px;
   }
+}
+
+.logo.logo-transform {
+  transform: translateX(-1000%);
+  opacity: 0.1;
+  transition: transform 0.6s ease;
 }
 
 @media screen and (max-width: 768px) {

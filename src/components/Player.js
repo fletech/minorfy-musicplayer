@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faPlayCircle,
@@ -93,6 +93,7 @@ const Player = ({
   };
 
   //States
+  const [activeVolume, setActiveVolume] = useState(true);
 
   return (
     <div className="player">
@@ -134,15 +135,17 @@ const Player = ({
       </div>
       <div className="volume-container">
         <Icon icon={faVolumeDown} className="icon" />
-        <input
-          className="volume-input"
-          onChange={changeVolumeHandler}
-          value={songInfo.volume}
-          max="1"
-          min="0"
-          step="0.01"
-          type="range"
-        />
+        {activeVolume && (
+          <input
+            className="volume-input"
+            onChange={changeVolumeHandler}
+            value={songInfo.volume}
+            max="1"
+            min="0"
+            step="0.01"
+            type="range"
+          />
+        )}
         <Icon icon={faVolumeUp} className="icon" />
       </div>
     </div>

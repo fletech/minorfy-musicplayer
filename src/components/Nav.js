@@ -9,9 +9,8 @@ const Nav = ({ libraryStatus, setLibraryStatus }) => {
   };
   return (
     <nav className="nav-bar">
-      <div className="logo">
+      <div className={`logo${libraryStatus ? " logo-transform" : ""}`}>
         <img src="/images/cassette.svg" alt="cassette-logo" />
-
         <h3>minorfy</h3>
       </div>
       <div className="library-button">

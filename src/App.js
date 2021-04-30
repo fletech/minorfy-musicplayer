@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 //Import Style
 import "./styles/app.scss";
 //Import components
@@ -43,7 +43,6 @@ function App() {
   };
 
   const closeLibraryHandler = (e) => {
-    console.log(e.target.offsetParent);
     e.stopPropagation();
     if (libraryStatus) {
       if (e.target.offsetParent === undefined) {
@@ -64,6 +63,12 @@ function App() {
     e.stopPropagation();
   };
 
+  useEffect(() => {
+    let title = isPlaying
+      ? `${currentSong.name}-${currentSong.artist}`
+      : `minorfy - ${currentSong.name}`;
+    document.title = title;
+  }, [isPlaying, currentSong]);
   return (
     <div
       className="App"
