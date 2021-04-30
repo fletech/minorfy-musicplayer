@@ -5,6 +5,8 @@ import {
   faAngleLeft,
   faAngleRight,
   faPauseCircle,
+  faVolumeDown,
+  faVolumeUp,
 } from "@fortawesome/free-solid-svg-icons";
 //import { playAudio } from "../util";
 
@@ -67,7 +69,6 @@ const Player = ({
     }
   };
 
-  //Use Effect
   const activeLibraryHandler = (nextPrev) => {
     const newSongs = songs.map((s) => {
       if (s.id === nextPrev.id) {
@@ -84,6 +85,14 @@ const Player = ({
     });
     setSongs(newSongs);
   };
+
+  const changeVolumeHandler = (e) => {
+    let value = e.target.value;
+    audioRef.current.volume = value;
+    setSongInfo({ ...songInfo, volume: value });
+  };
+
+  //States
 
   return (
     <div className="player">
@@ -104,12 +113,12 @@ const Player = ({
           onClick={() => {
             skipTrackHandler("skip-back");
           }}
-          className="skip-back"
+          className="skip-back icon"
           size="2x"
           icon={faAngleLeft}
         />
         <Icon
-          className="play"
+          className="play icon"
           size="2x"
           icon={isPlaying ? faPauseCircle : faPlayCircle}
           onClick={playSongHandler}
@@ -118,10 +127,23 @@ const Player = ({
           onClick={() => {
             skipTrackHandler("skip-forward");
           }}
-          className="skip-forward"
+          className="skip-forward icon"
           size="2x"
           icon={faAngleRight}
         />
+      </div>
+      <div className="volume-container">
+        <Icon icon={faVolumeDown} className="icon" />
+        <input
+          className="volume-input"
+          onChange={changeVolumeHandler}
+          value={songInfo.volume}
+          max="1"
+          min="0"
+          step="0.01"
+          type="range"
+        />
+        <Icon icon={faVolumeUp} className="icon" />
       </div>
     </div>
   );
