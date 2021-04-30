@@ -42,8 +42,34 @@ function App() {
     audioRef.current.play();
   };
 
+  const closeLibraryHandler = (e) => {
+    console.log(e.target.offsetParent);
+    e.stopPropagation();
+    if (libraryStatus) {
+      if (e.target.offsetParent === undefined) {
+        return setLibraryStatus(false);
+      }
+      if (
+        e.target.offsetParent !== null &&
+        e.target.offsetParent.className !== "library "
+      ) {
+        setLibraryStatus(false);
+      }
+      console.log();
+    }
+  };
+
+  const closeKeyLibraryHandler = (e) => {
+    console.log(e.key);
+    e.stopPropagation();
+  };
+
   return (
-    <div className="App">
+    <div
+      className="App"
+      onClick={closeLibraryHandler}
+      onKeyPress={closeKeyLibraryHandler}
+    >
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
       <Song
         currentSong={currentSong}
@@ -70,6 +96,7 @@ function App() {
         setCurrentSong={setCurrentSong}
         songs={songs}
         setSongs={setSongs}
+        close
       />
       <audio
         ref={audioRef}

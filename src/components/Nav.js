@@ -12,11 +12,11 @@ const Nav = ({ libraryStatus, setLibraryStatus }) => {
       <div className="logo">
         <img src="/images/cassette.svg" alt="cassette-logo" />
 
-        <h3>Me Lodics</h3>
+        <h3>minorfy</h3>
       </div>
       <div className="library-button">
         <button onClick={toggleLibraryHanlder}>
-          <p>Library</p>
+          <p>{!libraryStatus ? "Library" : "Close"}</p>
           <Icon icon={faMusic} />
         </button>
       </div>
