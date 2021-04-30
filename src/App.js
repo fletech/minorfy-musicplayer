@@ -71,11 +71,7 @@ function App() {
       onKeyPress={closeKeyLibraryHandler}
     >
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
-      <Song
-        currentSong={currentSong}
-        isPlaying={isPlaying}
-        setIsPlaying={setIsPlaying}
-      />
+      <Song currentSong={currentSong} isPlaying={isPlaying} />
       <Player
         songs={songs}
         setSongs={setSongs}
