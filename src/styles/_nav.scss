@@ -1,5 +1,4 @@
 nav.nav-bar {
-  padding: 1rem 2.3rem;
   width: 100%;
   height: 10vh;
   border-bottom: solid 1px #999999;
@@ -46,12 +45,13 @@ nav.nav-bar {
 @media screen and (max-width: 768px) {
   nav.nav-bar {
     justify-content: space-between;
+    padding: 0rem 2.3rem;
+    .logo {
+      min-width: none;
+    }
 
     .button-on {
       z-index: 10;
-      position: fixed;
-      top: 1.15rem;
-      right: 2.3rem;
     }
     .button {
       position: relative;
