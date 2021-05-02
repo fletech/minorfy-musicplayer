@@ -7,7 +7,7 @@ import {
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
 
-const Footer = () => {
+const Footer = ({ libraryStatus }) => {
   return (
     <footer>
       <div className="author-info">
@@ -18,7 +18,11 @@ const Footer = () => {
             target="_blank"
             rel="noreferrer"
           >
-            <Icon icon={faReact} spin color={"dodgerblue"} style={{}} />{" "}
+            <Icon
+              icon={faReact}
+              spin={libraryStatus ? false : true}
+              color={"dodgerblue"}
+            />{" "}
           </a>
           by{" "}
           <a

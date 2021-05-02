@@ -71,10 +71,6 @@ function App() {
     }
   };
 
-  const closeKeyLibraryHandler = (e) => {
-    e.stopPropagation();
-  };
-
   //USE EFFECT
   useEffect(() => {
     let title = isPlaying
@@ -84,11 +80,7 @@ function App() {
   }, [isPlaying, currentSong]);
 
   return (
-    <div
-      className="App"
-      onClick={closeLibraryHandler}
-      onKeyPress={closeKeyLibraryHandler}
-    >
+    <div className="App" onClick={closeLibraryHandler}>
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
       <Song currentSong={currentSong} isPlaying={isPlaying} />
       <Player
@@ -124,7 +116,7 @@ function App() {
         src={currentSong.audio}
         onEnded={endedSongHandler}
       ></audio>
-      <Footer />
+      <Footer libraryStatus={libraryStatus} />
     </div>
   );
 }
