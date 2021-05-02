@@ -1,9 +1,11 @@
 .song-container {
-  min-height: 60vh;
+  margin-top: 10px;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   img {
     width: 20%;
     min-width: 250px;
@@ -27,6 +29,6 @@
 
 @media screen and (max-width: 768px) {
   .song-container img {
-    width: 250px;
+    width: 200px;
   }
 }

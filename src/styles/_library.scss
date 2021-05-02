@@ -9,9 +9,24 @@
   box-shadow: 2px 2px 50px #acabab;
   overflow: scroll;
   transition: all 0.5s ease;
-  .logo {
-    margin: 2.3rem;
+  .logo-library {
+    margin-left: 2rem;
     transition: all 0.8s ease;
+    min-width: 100px;
+    max-width: 200px;
+    display: flex;
+    height: 10vh;
+    align-items: center;
+    transition: all 0.6s ease;
+    img {
+      width: 20%;
+      margin-right: 10px;
+    }
+  }
+  .logo-library-transform {
+    transform: translateX(-1000%);
+    opacity: 0.1;
+    transition: transform 0.6s ease;
   }
 }
 

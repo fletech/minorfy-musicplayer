@@ -13,7 +13,11 @@ const Library = ({
   const status = libraryStatus ? "" : "library-status";
   return (
     <div className={`library ${status}`}>
-      <div className={`logo${!libraryStatus ? " logo-transform" : ""}`}>
+      <div
+        className={`logo-library${
+          !libraryStatus ? " logo-library-transform" : ""
+        }`}
+      >
         <img src="/images/cassette.svg" alt="cassette-logo" />
         <h3>minorfy</h3>
       </div>

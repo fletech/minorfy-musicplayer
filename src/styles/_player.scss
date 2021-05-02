@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   align-content: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 
 .time-control {
@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   input {
     width: 100%;
     padding: 1rem 0;
@@ -33,7 +33,7 @@
   }
 }
 .volume-container {
-  margin-top: 50px;
+  margin-top: 25px;
   width: 20%;
   min-width: 150px;
   display: flex;
