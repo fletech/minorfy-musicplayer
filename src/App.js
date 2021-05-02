@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+
 //Import Style
 import "./styles/app.scss";
 //Import components
@@ -6,6 +7,7 @@ import Library from "./components/Library";
 import Nav from "./components/Nav";
 import Player from "./components/Player";
 import Song from "./components/Song";
+import Footer from "./components/Footer";
 
 import data from "./data/data";
 
@@ -20,15 +22,27 @@ function App() {
   const [{ ...songInfo }, setSongInfo] = useState({
     currentTime: 0,
     duration: 0,
+    animationPercentage: 0,
   });
   const [libraryStatus, setLibraryStatus] = useState(false);
+  const [volumeInput, setVolumeInput] = useState(0.3);
+  const [volumeValue, setVolumeValue] = useState(volumeInput);
 
   //Handler
   const timeUpdateHandler = (e) => {
     const current = e.target.currentTime;
-    const durationEvent = e.target.duration;
-    const duration = isNaN(durationEvent) ? 0 : e.target.duration;
-    setSongInfo({ currentTime: current, duration });
+    const duration = isNaN(e.target.duration) ? 0 : e.target.duration;
+    //calculate current time in percentage:
+    const roundedCurrent = Math.ceil(current);
+    const roundedDuration = Math.ceil(duration);
+    const animation = Math.ceil((roundedCurrent / roundedDuration) * 100);
+
+    setSongInfo({
+      ...songInfo,
+      currentTime: current,
+      duration,
+      animationPercentage: animation,
+    });
   };
 
   const endedSongHandler = async () => {
@@ -54,21 +68,21 @@ function App() {
       ) {
         setLibraryStatus(false);
       }
-      console.log();
     }
   };
 
   const closeKeyLibraryHandler = (e) => {
-    console.log(e.key);
     e.stopPropagation();
   };
 
+  //USE EFFECT
   useEffect(() => {
     let title = isPlaying
       ? `${currentSong.name}-${currentSong.artist}`
       : `minorfy - ${currentSong.name}`;
     document.title = title;
   }, [isPlaying, currentSong]);
+
   return (
     <div
       className="App"
@@ -87,6 +101,8 @@ function App() {
         setIsPlaying={setIsPlaying}
         setSongInfo={setSongInfo}
         songInfo={songInfo}
+        volumeInput={volumeInput}
+        setVolumeInput={setVolumeInput}
       />
       <Library
         libraryStatus={libraryStatus}
@@ -97,15 +113,18 @@ function App() {
         setCurrentSong={setCurrentSong}
         songs={songs}
         setSongs={setSongs}
-        close
       />
+
       <audio
         ref={audioRef}
+        volume={volumeValue}
+        onVolumeChange={() => setVolumeValue(volumeInput)}
         onLoadedMetadata={timeUpdateHandler}
         onTimeUpdate={timeUpdateHandler}
         src={currentSong.audio}
         onEnded={endedSongHandler}
       ></audio>
+      <Footer />
     </div>
   );
 }

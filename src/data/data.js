@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 function chillHop() {
   return [
     {
-      name: "Saturdat night movie",
+      name: "Saturday night movie",
       cover: "https://i.scdn.co/image/8f52da9e4164f40620e5129f71a0891043b61224",
       artist: "Soulchef",
       audio: "https://mp3.chillhop.com/serve.php/?mp3=1565",

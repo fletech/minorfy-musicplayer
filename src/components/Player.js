@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faPlayCircle,
-  faAngleLeft,
-  faAngleRight,
+  faStepBackward,
+  faStepForward,
   faPauseCircle,
-  faVolumeDown,
   faVolumeUp,
+  faVolumeMute,
 } from "@fortawesome/free-solid-svg-icons";
 //import { playAudio } from "../util";
 
@@ -20,6 +20,8 @@ const Player = ({
   setIsPlaying,
   songInfo,
   setSongInfo,
+  volumeInput,
+  setVolumeInput,
 }) => {
   //Functions
   const getTime = (time) => {
@@ -31,9 +33,11 @@ const Player = ({
   //Handlers
   const playSongHandler = async () => {
     if (isPlaying) {
+      console.log(audioRef.current.volume);
       audioRef.current.pause();
       await setIsPlaying(!isPlaying);
     } else {
+      console.log(audioRef.current.volume);
       audioRef.current.play();
       await setIsPlaying(!isPlaying);
     }
@@ -89,23 +93,51 @@ const Player = ({
   const changeVolumeHandler = (e) => {
     let value = e.target.value;
     audioRef.current.volume = value;
-    setSongInfo({ ...songInfo, volume: value });
+    setVolumeInput(value);
+  };
+  const muteHandler = (activeInactive) => {
+    if (activeInactive) {
+      audioRef.current.volume = 0;
+      setVolumeInput(0);
+      setActiveVolume(false);
+    } else {
+      audioRef.current.volume = 0.3;
+      setVolumeInput(0.3);
+      setActiveVolume(true);
+    }
   };
 
   //States
+
   const [activeVolume, setActiveVolume] = useState(true);
+
+  //Style input VOLUME
+  let volumeRounded = Math.round(volumeInput * 100);
+  const styleVolumeInput = {
+    transform: `translateX(${volumeRounded}%)`,
+  };
+  // Style input TIME
+  const trackAnimation = {
+    transform: `translateX(${songInfo.animationPercentage}%)`,
+  };
+  const trackColor = {
+    background: `linear-gradient(to right, ${currentSong.color[0]}, ${currentSong.color[1]})`,
+  };
 
   return (
     <div className="player">
       <div className="time-control">
         <p>{getTime(songInfo.currentTime)}</p>
-        <input
-          onChange={dragHandler}
-          min={0}
-          max={songInfo.duration}
-          value={songInfo.currentTime}
-          type="range"
-        />
+        <div className="track" style={trackColor}>
+          <input
+            onChange={dragHandler}
+            min={0}
+            max={songInfo.duration}
+            value={songInfo.currentTime}
+            type="range"
+          />
+          <div className="animate-track" style={trackAnimation}></div>
+        </div>
         <p>{getTime(songInfo.duration)}</p>
         <p></p>
       </div>
@@ -116,7 +148,7 @@ const Player = ({
           }}
           className="skip-back icon"
           size="2x"
-          icon={faAngleLeft}
+          icon={faStepBackward}
         />
         <Icon
           className="play icon"
@@ -130,23 +162,40 @@ const Player = ({
           }}
           className="skip-forward icon"
           size="2x"
-          icon={faAngleRight}
+          icon={faStepForward}
         />
       </div>
       <div className="volume-container">
-        <Icon icon={faVolumeDown} className="icon" />
-        {activeVolume && (
-          <input
-            className="volume-input"
-            onChange={changeVolumeHandler}
-            value={songInfo.volume}
-            max="1"
-            min="0"
-            step="0.01"
-            type="range"
+        {!activeVolume ? (
+          <Icon
+            icon={faVolumeUp}
+            className="icon-volume mute"
+            onClick={() => muteHandler(activeVolume)}
+          />
+        ) : (
+          <Icon
+            icon={faVolumeMute}
+            className="icon-volume mute"
+            onClick={() => muteHandler(activeVolume)}
           />
         )}
-        <Icon icon={faVolumeUp} className="icon" />
+
+        {activeVolume && (
+          <div className="volume">
+            <input
+              className="volume-input"
+              onChange={changeVolumeHandler}
+              value={volumeInput}
+              max="1"
+              min="0"
+              step="0.01"
+              type="range"
+            />
+            <div className="animate-volume" style={styleVolumeInput}></div>
+          </div>
+        )}
+
+        {activeVolume && <Icon icon={faVolumeUp} className="icon-volume" />}
       </div>
     </div>
   );
